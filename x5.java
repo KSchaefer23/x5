@@ -5,7 +5,7 @@
 
 String title=  "ELASTIC COLLISIONS";
 String news=   "Use 'r' key to reset.";
-String author=  "Your Name";
+String author=  "Kevin Schaefer";
 
 
 float left, right, top, bottom;
@@ -30,6 +30,8 @@ void setup() {
  void reset() {
    cueX=  left + (right-left) / 4;
    cueY=  top + (bottom-top) / 2;
+   cueDX= 0;
+   cueDY= 0;
    // Random positions.
    redX=  random( middle,right );   redY=  random( top, bottom );
    yelX=  random( middle,right );   yelY=  random( top, bottom );
@@ -69,6 +71,8 @@ void bounce() {
   yelY += yelDY;  if ( yelY<top || yelY>bottom ) yelDY *=  -1;
   bluX += bluDX;  if ( bluX<left || bluX>right ) bluDX *= -1;
   bluY += bluDY;  if ( bluY<top || bluY>bottom ) bluDY *=  -1;  
+  cueX += cueDX;  if ( cueX<left || cueX>right ) cueDX *= -1;
+  cueY += cueDY;  if ( cueY<top || cueY>bottom ) cueDY *=  -1;    
 }
 void collisions() {
   float tmp;
@@ -85,6 +89,19 @@ void collisions() {
     tmp=bluDX;  bluDX=yelDX;  yelDX=tmp;
     tmp=bluDY;  bluDY=yelDY;  yelDY=tmp;
   }
+  
+  if ( dist( cueX,cueY, bluX,bluY ) < 30 ){ 
+    tmp=bluDX;  bluDX=cueDX;  cueDX=tmp;
+    tmp=bluDY;  bluDY=cueDY;  cueDY=tmp;
+  }
+  if ( dist( cueX,cueY, redX,redY ) < 30 ){ 
+    tmp=redDX;  redDX=cueDX;  cueDX=tmp;
+    tmp=redDY;  redDY=cueDY;  cueDY=tmp;
+  }
+  if ( dist( cueX,cueY, yelX,yelY ) < 30 ){ 
+    tmp=yelDX;  yelDX=cueDX;  cueDX=tmp;
+    tmp=yelDY;  yelDY=cueDY;  cueDY=tmp;
+  }  
 }
 
 //// SHOW:  balls, messages
@@ -98,7 +115,7 @@ void messages() {
   fill(0);
   text( title, width/3, 20 );
   text( news, width/3, 40 );
-  text( author, 10, height-10 );
+  text( author, 10, height-6 );
 }
 
 
