@@ -1,3 +1,4 @@
+//// Kevin Schaefer CST 112
 //// X5:  collisions.
 //// (Assume ball diameter of 30.)
 
@@ -32,14 +33,25 @@ void setup() {
    cueY=  top + (bottom-top) / 2;
    cueDX= 0;
    cueDY= 0;
-   // Random positions.
-   redX=  random( middle,right );   redY=  random( top, bottom );
-   yelX=  random( middle,right );   yelY=  random( top, bottom );
-   bluX=  random( middle,right );   bluY=  random( top, bottom );
+   
+   // Random positions. 
+   //redX=  random( middle,right );   redY=  random( top, bottom );
+   //yelX=  random( middle,right );   yelY=  random( top, bottom );
+   //bluX=  random( middle,right );   bluY=  random( top, bottom );   
+   
+   // Rough Triangle Formation
+   redX=  middle+100;   redY= cueY;
+   yelX=  middle+129;   yelY= cueY+16;
+   bluX=  middle+129;   bluY= cueY-16;
+   redDX= 0; redDY= 0;
+   yelDX= 0; yelDY= 0;
+   bluDX= 0; bluDY= 0;
+   
    // Random speeds
-   redDX=  random( 1,3 );   redDY=  random( -3,3 );
-   yelDX=  random( 1,3 );   yelDY=  random( -3,3 );
-   bluDX=  random( 1,3 );   bluDY=  random( -3,3 );
+   //redDX=  random( 1,3 );   redDY=  random( -3,3 );
+   //yelDX=  random( 1,3 );   yelDY=  random( -3,3 );
+   //bluDX=  random( 1,3 );   bluDY=  random( -3,3 );
+   
  }
 
 //// NEXT FRAME:  table, bounce off walls, collisions, show all
