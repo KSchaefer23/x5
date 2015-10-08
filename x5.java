@@ -64,6 +64,11 @@ void table( float left, float top, float right, float bottom ) {
 //// ACTION:  bounce off walls, collisions
 void bounce() {
   redX += redDX;  if ( redX<left || redX>right ) redDX *= -1;
+  redY += redDY;  if ( redY<top || redY>bottom ) redDY *=  -1;
+  yelX += yelDX;  if ( yelX<left || yelX>right ) yelDX *= -1;
+  yelY += yelDY;  if ( yelY<top || yelY>bottom ) yelDY *=  -1;
+  bluX += bluDX;  if ( bluX<left || bluX>right ) bluDX *= -1;
+  bluY += bluDY;  if ( bluY<top || bluY>bottom ) bluDY *=  -1;  
 }
 void collisions() {
   float tmp;
@@ -72,17 +77,25 @@ void collisions() {
     tmp=yelDX;  yelDX=redDX;  redDX=tmp;
     tmp=yelDY;  yelDY=redDY;  redDY=tmp;
   }
+  if ( dist( redX,redY, bluX,bluY ) < 30 ){ 
+    tmp=bluDX;  bluDX=redDX;  redDX=tmp;
+    tmp=bluDY;  bluDY=redDY;  redDY=tmp;
+  } 
+  if ( dist( yelX,yelY, bluX,bluY ) < 30 ){ 
+    tmp=bluDX;  bluDX=yelDX;  yelDX=tmp;
+    tmp=bluDY;  bluDY=yelDY;  yelDY=tmp;
+  }
 }
 
 //// SHOW:  balls, messages
 void show() {
-  fill( 255,255,255 );    ellipse( redX,redY, 30,30 );
   fill( 255,0,0 );    ellipse( redX,redY, 30,30 );
   fill( 255,255,0 );  ellipse( yelX,yelY, 30,30 );
   fill( 0,0,255 );    ellipse( bluX,bluY, 30,30 );
   fill( 255,255,255 );    ellipse( cueX,cueY, 30,30 );
 }
 void messages() {
+  fill(0);
   text( title, width/3, 20 );
   text( news, width/3, 40 );
   text( author, 10, height-10 );
