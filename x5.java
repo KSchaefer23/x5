@@ -37,9 +37,9 @@ void setup() {
    yelX=  random( middle,right );   yelY=  random( top, bottom );
    bluX=  random( middle,right );   bluY=  random( top, bottom );
    // Random speeds
-   redDX=  random( 1,3 );   redDY=  random( 1,3 );
-   yelDX=  random( 1,3 );   yelDY=  random( 1,3 );
-   bluDX=  random( 1,3 );   bluDY=  random( 1,3 );
+   redDX=  random( 1,3 );   redDY=  random( -3,3 );
+   yelDX=  random( 1,3 );   yelDY=  random( -3,3 );
+   bluDX=  random( 1,3 );   bluDY=  random( -3,3 );
  }
 
 //// NEXT FRAME:  table, bounce off walls, collisions, show all
