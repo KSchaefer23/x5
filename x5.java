@@ -74,6 +74,12 @@ void bounce() {
   cueX += cueDX;  if ( cueX<left || cueX>right ) cueDX *= -1;
   cueY += cueDY;  if ( cueY<top || cueY>bottom ) cueDY *=  -1;    
 }
+
+void mouseClicked() {
+  cueDX= (cueX - mouseX) / 10;
+  cueDY= (cueY - mouseY) / 10;
+}
+
 void collisions() {
   float tmp;
   // Swap velocities!
