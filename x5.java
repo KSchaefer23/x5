@@ -78,12 +78,25 @@ void table( float left, float top, float right, float bottom ) {
 
 //// ACTION:  bounce off walls, collisions
 void bounce() {
+  //if ( redX<left ) {
+  //  redX= left+15;
+  //  redDX= +abs(redDX);
+  //}
+  //if (redX>right) {
+  //  redX= right-15;
+  //  redDX= -abs(redDX);
+  //}
+  
   redX += redDX;  if ( redX<left || redX>right ) redDX *= -1;
   redY += redDY;  if ( redY<top || redY>bottom ) redDY *=  -1;
   yelX += yelDX;  if ( yelX<left || yelX>right ) yelDX *= -1;
   yelY += yelDY;  if ( yelY<top || yelY>bottom ) yelDY *=  -1;
   bluX += bluDX;  if ( bluX<left || bluX>right ) bluDX *= -1;
-  bluY += bluDY;  if ( bluY<top || bluY>bottom ) bluDY *=  -1;  
+  bluY += bluDY;  if ( bluY<top || bluY>bottom ) bluDY *=  -1;
+    //if (cueX<left) { cueX = left+15; cueDX= +abs(cueDX); }
+    //if (cueX>right) { cueX = right-15; cueDX= -abs(cueDX); }
+    //if (cueY<top) { cueY = top+15; cueDY= +abs(cueDY); }
+    //if (cueY<bottom) { cueY = bottom-15; cueDY= -abs(cueDY); }
   cueX += cueDX;  if ( cueX<left || cueX>right ) cueDX *= -1;
   cueY += cueDY;  if ( cueY<top || cueY>bottom ) cueDY *=  -1;    
 }
@@ -91,36 +104,41 @@ void bounce() {
 void mouseClicked() {
   cueDX= (cueX - mouseX) / 10;
   cueDY= (cueY - mouseY) / 10;
+  strokeWeight( dist(mouseX,mouseY, cueX,cueY) / 30);
+  line(mouseX,mouseY, cueX,cueY);
+  
 }
 
 void collisions() {
   float tmp;
   // Swap velocities!
-  if ( dist( redX,redY, yelX,yelY ) < 30 ) {
-    tmp=yelDX;  yelDX=redDX;  redDX=tmp;
-    tmp=yelDY;  yelDY=redDY;  redDY=tmp;
+  if (cueDX != 0) {
+    if ( dist( redX,redY, yelX,yelY ) < 30 ) {
+      tmp=yelDX;  yelDX=redDX;  redDX=tmp;
+      tmp=yelDY;  yelDY=redDY;  redDY=tmp;
+    }
+    if ( dist( redX,redY, bluX,bluY ) < 30 ){ 
+      tmp=bluDX;  bluDX=redDX;  redDX=tmp;
+      tmp=bluDY;  bluDY=redDY;  redDY=tmp;
+    } 
+    if ( dist( yelX,yelY, bluX,bluY ) < 30 ){ 
+      tmp=bluDX;  bluDX=yelDX;  yelDX=tmp;
+      tmp=bluDY;  bluDY=yelDY;  yelDY=tmp;
+    }
+    
+    if ( dist( cueX,cueY, bluX,bluY ) < 30 ){ 
+      tmp=bluDX;  bluDX=cueDX;  cueDX=tmp;
+      tmp=bluDY;  bluDY=cueDY;  cueDY=tmp;
+    }
+    if ( dist( cueX,cueY, redX,redY ) < 30 ){ 
+      tmp=redDX;  redDX=cueDX;  cueDX=tmp;
+      tmp=redDY;  redDY=cueDY;  cueDY=tmp;
+    }
+    if ( dist( cueX,cueY, yelX,yelY ) < 30 ){ 
+      tmp=yelDX;  yelDX=cueDX;  cueDX=tmp;
+      tmp=yelDY;  yelDY=cueDY;  cueDY=tmp;
+    }  
   }
-  if ( dist( redX,redY, bluX,bluY ) < 30 ){ 
-    tmp=bluDX;  bluDX=redDX;  redDX=tmp;
-    tmp=bluDY;  bluDY=redDY;  redDY=tmp;
-  } 
-  if ( dist( yelX,yelY, bluX,bluY ) < 30 ){ 
-    tmp=bluDX;  bluDX=yelDX;  yelDX=tmp;
-    tmp=bluDY;  bluDY=yelDY;  yelDY=tmp;
-  }
-  
-  if ( dist( cueX,cueY, bluX,bluY ) < 30 ){ 
-    tmp=bluDX;  bluDX=cueDX;  cueDX=tmp;
-    tmp=bluDY;  bluDY=cueDY;  cueDY=tmp;
-  }
-  if ( dist( cueX,cueY, redX,redY ) < 30 ){ 
-    tmp=redDX;  redDX=cueDX;  cueDX=tmp;
-    tmp=redDY;  redDY=cueDY;  cueDY=tmp;
-  }
-  if ( dist( cueX,cueY, yelX,yelY ) < 30 ){ 
-    tmp=yelDX;  yelDX=cueDX;  cueDX=tmp;
-    tmp=yelDY;  yelDY=cueDY;  cueDY=tmp;
-  }  
 }
 
 //// SHOW:  balls, messages
